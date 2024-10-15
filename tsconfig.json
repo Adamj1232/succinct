@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "lib": ["webworker", "DOM", "ES2015"],
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "verbatimModuleSyntax": false,
+    "isolatedModules": false
+  }
+}
