@@ -3,8 +3,8 @@
   import '../app.css'
 </script>
 
-<div class="flex flex-col items-center justify-center min-h-screen bg-gray-800 text-white p-4">
-  <h1 class="text-4xl font-bold mb-8 text-center">Telepathy Message Explorer</h1>
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-800 text-white p-5">
+  <h1 class="text-4xl font-bold mb-4 text-center">Telepathy Message Explorer</h1>
   <div class="w-full max-w-8xl p-4">
     <Table />
   </div>
