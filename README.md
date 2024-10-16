@@ -3,6 +3,8 @@
 Welcome to the Telepathy Dashboard Explorer!
 
 This project is built with the Svelte framework, leveraging Svelte's smaller bundle size, lack of a virtual DOM, and simplified state management.
+
+### Svelte
 For more information on Svelte you can checkout the docs [here](https://svelte.dev/docs/introduction)
 
 ## Running the Project Locally
