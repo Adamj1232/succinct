@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Message } from '$lib/@types/api.ts'
+  import type { Message } from '$lib/@types/api-res'
   import { getCurrentBlock, getMessages } from '../utils'
   import { onMount } from 'svelte'
 
@@ -61,7 +61,8 @@
   <div class="flex justify-center items-center text-xl p-2">
     Block #{blocksBackNumber} - #{parseInt(currentBlock, 16)}
   </div>
-  <div class="max-h-[80vh] max-w-[1400px] m-auto overflow-x-auto bg-gray-800 rounded-lg">
+  <div>
+  <div class="max-h-[70vh] max-w-[1400px] m-auto overflow-x-auto bg-gray-800 rounded-lg">
     {#if loading}
       <div class="flex justify-center items-center h-64">
         <div class="text-2xl text-white animate-pulse">Loading...</div>
@@ -81,11 +82,11 @@
           {#each messages as message}
             <tr class="border-b border-gray-600 even:bg-gray-700 hover:bg-gray-600">
               <td class="px-4 py-2">{parseInt(message.topics[1], 16)}</td>
-              <td class="px-4 py-2 max-w-[19rem] truncate" title={message.topics[2]}
+              <td class="px-4 py-2 max-w-[18rem] truncate" title={message.topics[2]}
                 >{message.topics[2]}</td
               >
               <td
-                class="px-4 py-2 max-w-xs overflow-hidden truncate"
+                class="px-4 py-2 max-w-[18rem] overflow-hidden truncate"
                 title={removeLeadingZeros(message.data)}
               >
                 {removeLeadingZeros(message.data)}
@@ -106,3 +107,4 @@
       {/if}
     </div>
   </div>
+</div>

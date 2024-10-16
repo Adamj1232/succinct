@@ -1,4 +1,5 @@
 {
+  "extends": "./.svelte-kit/tsconfig.json",
   "compilerOptions": {
     "lib": ["webworker", "DOM", "ES2015"],
     "allowSyntheticDefaultImports": true,
@@ -9,6 +10,11 @@
     "sourceMap": true,
     "strict": true,
     "verbatimModuleSyntax": false,
-    "isolatedModules": false
+    "isolatedModules": false,
+    "baseUrl": ".", // Set the base URL to your source directory
+    "paths": {
+      "$lib/*": ["src/lib/*"], // Adjust this mapping as necessary
+      "$lib/@types/*": ["src/lib/@types/*"] // Ensure this is correct
+    }
   }
 }
