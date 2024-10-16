@@ -6,6 +6,7 @@
   export let loading = true // Loading state for fetching messages
 </script>
 
+<!-- TODO: Optimize for a mobile experience -->
 <div>
   <div class="max-h-[70vh] max-w-[1400px] m-auto overflow-x-auto bg-gray-800 rounded-lg">
     {#if loading}
