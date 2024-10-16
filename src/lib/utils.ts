@@ -100,3 +100,9 @@ export async function getMessages(
     throw error
   }
 }
+
+// Function to remove leading zeros from hexadecimal data
+export const removeLeadingZeros = (hexData: string) => {
+  // Replace leading zeros
+  return hexData.replace(/^0x0+/, '0x')
+}

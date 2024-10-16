@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Table from '../lib/components/Table.svelte'
+  import Navigator from '../lib/components/Navigator.svelte'
   import '../app.css'
   import SuccinctIcon from '../lib/icons/succinct_icon.svg'
 </script>
@@ -8,7 +8,7 @@
   <!-- TODO: Add i18n to internationalize app text -->
   <h1 class="text-4xl font-bold text-center">Telepathy Message Explorer</h1>
   <div class="w-full max-w-8xl">
-    <Table />
+    <Navigator />
   </div>
   <div class="flex justify-center gap-3 mt-auto">
     <!-- Icon will adhere to the width of the container -->
