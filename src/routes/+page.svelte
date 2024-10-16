@@ -1,22 +1,12 @@
 <script lang="ts">
 	import Table from "../lib/components/Table.svelte";
+  import '../app.css'
 </script>
 
-<div class="main">
-  <h1>Telepathy Message Explorer2</h1>
-  <Table />
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-800 text-white p-4">
+  <h1 class="text-4xl font-bold mb-8 text-center">Telepathy Message Explorer</h1>
+  <div class="w-full max-w-8xl p-4">
+    <Table />
+  </div>
 </div>
 
-<style>
-  main {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 1rem;
-      font-family: Arial, sans-serif;
-  }
-  
-  h1 {
-      text-align: center;
-      margin-bottom: 2rem;
-  }
-</style>
