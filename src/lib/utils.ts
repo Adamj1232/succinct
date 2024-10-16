@@ -1,7 +1,12 @@
-import { Message } from './@types/api-res' // Importing the Message type from the specified path
+import { Message } from './@types/api-res'
+
+// Function to remove leading zeros from hexadecimal data
+export const removeLeadingZeros = (hexData: string) => {
+  // Replace leading zeros
+  return hexData.replace(/^0x0+/, '0x')
+}
 
 // TODO: ENH - use viem for these action to bring in further utils
-
 // Function to fetch the current block number from the Ethereum blockchain
 export async function getCurrentBlock(): Promise<string> {
   try {
@@ -32,7 +37,6 @@ export async function getCurrentBlock(): Promise<string> {
     if (data.error) {
       throw new Error(`Error from API: ${JSON.stringify(data.error)}`)
     }
-
     // Return the block number if available
     if (data.result) {
       return data.result
@@ -90,6 +94,8 @@ export async function getMessages(
 
     // Return the message logs if available
     if (data.result) {
+      console.log(data.result)
+
       return data.result
     } else {
       throw new Error('No result found in the response')
@@ -99,10 +105,4 @@ export async function getMessages(
     console.error('Failed to fetch the message logs:', error)
     throw error
   }
-}
-
-// Function to remove leading zeros from hexadecimal data
-export const removeLeadingZeros = (hexData: string) => {
-  // Replace leading zeros
-  return hexData.replace(/^0x0+/, '0x')
 }
