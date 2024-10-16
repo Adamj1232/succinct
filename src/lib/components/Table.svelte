@@ -41,23 +41,23 @@
   }
 </script>
 
-<div class="flex flex-col gap-3">
+<div class="flex flex-col gap-1">
   <div class="flex justify-center items-center space-x-4">
+    <button on:click={nextPage} class="px-4 py-2 bg-gray-700 text-white rounded"
+      >Previous 10k Blocks</button
+    >
+    <span>{currentPage * 10000} Blocks</span>
     <button
       on:click={prevPage}
       disabled={currentPage === 1}
-      class="px-4 py-2 bg-gray-700 text-white rounded disabled:opacity-50">Previous</button
-    >
-    <span>{currentPage * 10000} Blocks</span>
-    <button on:click={nextPage} class="px-4 py-2 bg-gray-700 text-white rounded"
-      >Next 10k Blocks</button
+      class="px-4 py-2 bg-gray-700 text-white rounded disabled:opacity-50">Future Blocks</button
     >
   </div>
   <div class="flex justify-center items-center text-xl p-2">{messages.length} Messages</div>
   <div class="flex justify-center items-center text-xl p-2">
     Block #{blocksBackNumber} - #{parseInt(currentBlock, 16)}
   </div>
-  <div class="max-h-[84vh] overflow-x-auto bg-gray-800 rounded-lg">
+  <div class="max-h-[80vh] overflow-x-auto bg-gray-800 rounded-lg">
     <!-- TODO: Add loading spinner to reduce visual jump -->
     <table class="w-full text-white">
       <thead class="sticky top-0 bg-gray-700">
