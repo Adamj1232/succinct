@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { FetchDirection } from '$lib/@types/navigation'
+  import { PaginationDirection } from '$lib/@types/navigation'
   import { BLOCK_PER_PAGE_DEFAULT } from '$lib/constants'
 
   // Called when pagination is triggered to further fetch messages
-  export let fetchMessages: (direction?: FetchDirection) => void
+  export let fetchMessages: (direction?: PaginationDirection) => void
   export let blockStartHex: string
   export let blockEndHex: string
   export let messageCount: number
@@ -22,7 +22,7 @@
     if (currentPage > 1) {
       // Decrement current page if greater than 1
       currentPage--
-      fetchMessages(FetchDirection.FUTURE)
+      fetchMessages(PaginationDirection.FUTURE)
     }
   }
 </script>

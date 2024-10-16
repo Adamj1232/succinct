@@ -94,8 +94,6 @@ export async function getMessages(
 
     // Return the message logs if available
     if (data.result) {
-      console.log(data.result)
-
       return data.result
     } else {
       throw new Error('No result found in the response')

@@ -5,7 +5,7 @@
   import BlockNavigation from './BlockNavigation.svelte'
   import { BLOCK_PER_PAGE_DEFAULT } from '$lib/constants'
   import Table from './Table.svelte'
-  import { FetchDirection } from '$lib/@types/navigation'
+  import { PaginationDirection } from '$lib/@types/navigation'
 
   let messages: Message[] = [] // Array to hold fetched messages
   let blockEndHex: string // Number of blocks to go back
@@ -20,37 +20,40 @@
     fetchMessages()
   })
 
+  const handleFetchFwds = async () => {
+    // Calculate blocks to go forward
+    const blocksFwdNumber = parseInt(blockStartHex, 16) + BLOCK_PER_PAGE_DEFAULT
+    // Convert back to hex
+    const futureBlockEndHex = '0x' + blocksFwdNumber.toString(16)
+
+    messages = await getMessages(blockStartHex, futureBlockEndHex)
+
+    // Reset variables for use in displaying block ranges
+    blockEndHex = blockStartHex
+    blockStartHex = futureBlockEndHex
+  }
+
+  const handleFetchBack = async () => {
+    if (blockEndHex) blockStartHex = blockEndHex
+    const blockStartHexNumber = parseInt(blockStartHex, 16) // Convert current block to decimal
+    // Calculate blocks to go back
+    const blocksBackNumber = blockStartHexNumber - BLOCK_PER_PAGE_DEFAULT
+
+    blockEndHex = '0x' + blocksBackNumber.toString(16) // Convert back to hex
+
+    messages = await getMessages(blockEndHex, blockStartHex)
+  }
+
   // Function to fetch messages from the blockchain
-  const fetchMessages = async (direction: FetchDirection = FetchDirection.PREVIOUS) => {
+  const fetchMessages = async (direction: PaginationDirection = PaginationDirection.PREVIOUS) => {
     loading = true
 
     if (!blockStartHex) {
       blockStartHex = await getCurrentBlock() // Get current block if not set
     }
 
-    console.log(direction)
-    if (direction === FetchDirection.PREVIOUS) {
-      if (blockEndHex) blockStartHex = blockEndHex
-      const blockStartHexNumber = parseInt(blockStartHex, 16) // Convert current block to decimal
-      // Calculate blocks to go back
-      const blocksBackNumber = blockStartHexNumber - BLOCK_PER_PAGE_DEFAULT
-
-      blockEndHex = '0x' + blocksBackNumber.toString(16) // Convert back to hex
-
-      console.log(parseInt(blockEndHex, 16), parseInt(blockStartHex, 16))
-      messages = await getMessages(blockEndHex, blockStartHex)
-    } else {
-      // Calculate blocks to go forward
-      const blocksFwdNumber = parseInt(blockStartHex, 16) + BLOCK_PER_PAGE_DEFAULT
-      // Convert back to hex
-      const futureBlockEndHex = '0x' + blocksFwdNumber.toString(16)
-
-      messages = await getMessages(blockStartHex, futureBlockEndHex)
-
-      // Reset variables for use in displaying block ranges
-      blockEndHex = blockStartHex
-      blockStartHex = futureBlockEndHex
-    }
+    // Fetch based on pagination direction
+    direction === PaginationDirection.PREVIOUS ? handleFetchBack() : handleFetchFwds()
 
     loading = false // Set loading state to false
   }

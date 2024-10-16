@@ -1,4 +1,4 @@
-export enum FetchDirection {
+export enum PaginationDirection {
   PREVIOUS = 'previous',
   FUTURE = 'future'
 }
