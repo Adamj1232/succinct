@@ -8,6 +8,7 @@
   let messages: Message[] = []
   let currentPage: number = 1
   let currentBlock: string = '0x114C309'
+  let blocksBackNumber: number
 
   onMount(() => {
     fetchMessages()
@@ -18,8 +19,8 @@
       currentBlock = await getCurrentBlock()
     }
     const currentBlockNumber = parseInt(currentBlock, 16)
-    const tenKBlocksBack = currentBlockNumber - messagesPerPage
-    const tenKBlocksBackHex = '0x' + tenKBlocksBack.toString(16)
+    blocksBackNumber = currentBlockNumber - messagesPerPage
+    const tenKBlocksBackHex = '0x' + blocksBackNumber.toString(16)
     messages = await getMessages(tenKBlocksBackHex, currentBlock)
     currentBlock = tenKBlocksBackHex
   }
@@ -53,10 +54,15 @@
     >
   </div>
   <div class="flex justify-center items-center text-xl p-2">{messages.length} Messages</div>
+  <div class="flex justify-center items-center text-xl p-2">
+    Block #{blocksBackNumber} - #{parseInt(currentBlock, 16)}
+  </div>
   <div class="max-h-[84vh] overflow-x-auto bg-gray-800 rounded-lg">
+    <!-- TODO: Add loading spinner to reduce visual jump -->
     <table class="w-full text-white">
       <thead class="sticky top-0 bg-gray-700">
         <tr>
+          <!-- TODO: Add i18n to internationalize page text -->
           <th class="px-4 py-2">Nonce</th>
           <th class="px-4 py-2">Message Hash</th>
           <th class="px-4 py-2 max-w-xs truncate">Message Bytes</th>
@@ -66,6 +72,7 @@
       <tbody>
         {#each messages as message}
           <tr class="border-b border-gray-600 even:bg-gray-700 hover:bg-gray-600">
+            <!-- TODO: Add copy btn to cell left -->
             <td class="px-4 py-2">{parseInt(message.topics[1], 16)}</td>
             <td class="px-4 py-2">{message.topics[2]}</td>
             <td class="px-4 py-2 max-w-xs overflow-scroll" title={removeLeadingZeros(message.data)}
