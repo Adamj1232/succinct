@@ -29,12 +29,16 @@
 
 <!-- Actions container -->
 <div class="flex flex-col gap-3">
+  {#if blockEndHex && blockStartHex}
+    <div class="flex justify-center items-center text-xl">
+      <!-- Display block range -->
+      Block #{parseInt(blockEndHex, 16)} - #{parseInt(blockStartHex, 16)}
+    </div>
+  {/if}
   <div class="flex justify-center items-center space-x-4">
     <button on:click={previousData} class="px-4 py-2 bg-gray-700 text-white rounded">
       Previous 10k Blocks
     </button>
-    <!-- Display current block count -->
-    <span>{currentPage * BLOCK_PER_PAGE_DEFAULT} Blocks</span>
     <!-- Disable button if on the first page -->
     <button
       on:click={futureData}
@@ -44,12 +48,6 @@
       Future Blocks
     </button>
   </div>
-  {#if blockEndHex && blockStartHex}
-    <div class="flex justify-center items-center text-xl">
-      <!-- Display block range -->
-      Block #{parseInt(blockEndHex, 16)} - #{parseInt(blockStartHex, 16)}
-    </div>
-  {/if}
 
   {#if !loading}
     <!-- Display number of messages -->
