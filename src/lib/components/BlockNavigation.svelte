@@ -26,11 +26,11 @@
       errorMessage = 'Block numbers must be positive.'
       return
     }
-    if (endBlock > mostRecentBlock) {
+    if (startBlock > mostRecentBlock) {
       errorMessage = `End block cannot be greater than the latest block (${mostRecentBlock}).`
       return
     }
-    if (endBlock - startBlock > 10000) {
+    if (startBlock - endBlock > 10000) {
       errorMessage = 'The range between start and end blocks cannot exceed 10,000.'
       return
     }

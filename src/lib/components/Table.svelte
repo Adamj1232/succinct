@@ -39,12 +39,12 @@
             <tr class="border-b border-gray-600 even:bg-gray-700 hover:bg-gray-600">
               <!-- Display Nonce -->
               <td class="px-4 py-2">{parseInt(message.topics[1], 16)}</td>
-              <td class="px-4 py-2 max-w-[18rem] truncate" title={message.topics[2]}>
+              <td class="px-4 py-2 max-w-[16rem] truncate" title={message.topics[2]}>
                 <!-- Display Message Hash -->
                 {message.topics[2]}
               </td>
               <td
-                class="px-4 py-2 max-w-[18rem] overflow-hidden truncate"
+                class="px-4 py-2 max-w-[14rem] overflow-hidden truncate"
                 title={removeLeadingZeros(message.data)}
               >
                 <!-- Display Message Bytes -->
