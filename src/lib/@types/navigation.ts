@@ -1,4 +1,10 @@
 export enum PaginationDirection {
-  PREVIOUS = 'previous',
+  PAST = 'past',
   FUTURE = 'future'
+}
+
+export type MessageFetchProps = {
+  direction?: PaginationDirection
+  startBlock?: string
+  endBlock?: string
 }

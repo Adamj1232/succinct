@@ -6,6 +6,13 @@ export const removeLeadingZeros = (hexData: string) => {
   return hexData.replace(/^0x0+/, '0x')
 }
 
+export const numToHex = (num : number): `0x${string}` => {
+  if(!num || typeof num !== 'number') {
+    console.error(`There was an error converting the number to a hex value`)
+  }
+  return `0x${num.toString(16)}`
+}
+
 // TODO: ENH - use viem for these action to bring in further utils
 // Function to fetch the current block number from the Ethereum blockchain
 export async function getCurrentBlock(): Promise<string> {
