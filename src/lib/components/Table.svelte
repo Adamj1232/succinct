@@ -9,6 +9,7 @@
 </script>
 
 <!-- TODO: Optimize for a mobile experience if necessary -->
+<!-- TODO: Research OOTB table components that come with UI component libs -->
 <!-- TODO: Make this component more generic if other tables are required by product -->
 <div>
   <div class="max-h-[70vh] max-w-[1400px] m-auto overflow-x-auto bg-gray-800 rounded-lg">
