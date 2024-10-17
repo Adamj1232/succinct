@@ -1,19 +1,26 @@
 import { Message } from './@types/api-res'
 
 // Function to remove leading zeros from hexadecimal data
-export const removeLeadingZeros = (hexData: string) => {
+export const removeLeadingZeros = (hexData: string): string => {
+  // Validate input
+  if (typeof hexData !== 'string') {
+    throw new TypeError('Expected a string as input')
+  }
   // Replace leading zeros
   return hexData.replace(/^0x0+/, '0x')
 }
 
-export const numToHex = (num : number): `0x${string}` => {
-  if(!num || typeof num !== 'number') {
-    console.error(`There was an error converting the number to a hex value`)
+// TODO: Use viem util function that also handles bigints if needed in the future
+// Function to convert a number to a hexadecimal string
+export const numToHex = (num: number): `0x${string}` => {
+  // Validate input
+  if (typeof num !== 'number') {
+    console.error(`Invalid input: expected a number or bigint, received ${typeof num}`)
+    throw new TypeError('Input must be a number or bigint')
   }
   return `0x${num.toString(16)}`
 }
 
-// TODO: ENH - use viem for these action to bring in further utils
 // Function to fetch the current block number from the Ethereum blockchain
 export async function getCurrentBlock(): Promise<string> {
   try {
@@ -44,6 +51,7 @@ export async function getCurrentBlock(): Promise<string> {
     if (data.error) {
       throw new Error(`Error from API: ${JSON.stringify(data.error)}`)
     }
+
     // Return the block number if available
     if (data.result) {
       return data.result
@@ -53,7 +61,7 @@ export async function getCurrentBlock(): Promise<string> {
   } catch (error) {
     // Log any errors that occur during the fetch
     console.error('Failed to fetch the current block:', error)
-    throw error
+    throw error // Rethrow the error for further handling
   }
 }
 
@@ -108,6 +116,6 @@ export async function getMessages(
   } catch (error) {
     // Log any errors that occur during the fetch
     console.error('Failed to fetch the message logs:', error)
-    throw error
+    throw error // Rethrow the error for further handling
   }
 }

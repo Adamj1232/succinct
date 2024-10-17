@@ -1,19 +1,22 @@
 <script lang="ts">
   import { type MessageFetchProps, PaginationDirection } from '$lib/@types/navigation'
+  import { MAX_BLOCK_PER_REQUEST } from '$lib/constants'
   import { numToHex } from '$lib/utils'
 
-  export let fetchMessages: (props?: MessageFetchProps) => void
-  export let enableDemoRange: () => Promise<void>
-  export let blockStartHex: string
-  export let blockEndHex: string
-  export let error: string
-  export let messageCount: number
-  export let loading: boolean
-  export let mostRecentBlock: number // New prop for the latest block
+  // Props
+  export let fetchMessages: (props?: MessageFetchProps) => void // Function to fetch messages
+  export let enableDemoRange: () => Promise<void> // Function to enable demo range
+  export let blockStartHex: string // Hexadecimal representation of the start block
+  export let blockEndHex: string // Hexadecimal representation of the end block
+  export let error: string // Error message state
+  export let messageCount: number // Total number of messages
+  export let isLoading: boolean // Loading state
+  export let mostRecentBlock: number // Most recent block number
 
   let currentPage: number = 1 // Current page number
   let errorMessage: string = '' // Error message for validation
 
+  // Reactive declarations for start and end blocks
   $: startBlock = parseInt(blockStartHex, 16) // Initialize start block
   $: endBlock = parseInt(blockEndHex, 16) // Initialize end block
 
@@ -30,7 +33,8 @@
       errorMessage = `End block cannot be greater than the latest block (${mostRecentBlock}).`
       return
     }
-    if (startBlock - endBlock > 10000) {
+    if (startBlock - endBlock > MAX_BLOCK_PER_REQUEST) {
+      // Consider replacing 10000 with a constant
       errorMessage = 'The range between start and end blocks cannot exceed 10,000.'
       return
     }
@@ -38,10 +42,11 @@
     fetchMessages({ startBlock: numToHex(startBlock), endBlock: numToHex(endBlock) })
   }
 
+  // Function to handle demo range
   const handleDemo = async () => {
-    await enableDemoRange(); // Wait for the demo range to be enabled
+    await enableDemoRange() // Wait for the demo range to be enabled
     // Calculate the current page based on the most recent block and the end block
-    currentPage = Math.floor((mostRecentBlock - endBlock) / 10000);
+    currentPage = Math.floor((mostRecentBlock - endBlock) / MAX_BLOCK_PER_REQUEST) // Consider replacing 10000 with a constant
   }
 
   // Function to go to the next page of messages
@@ -53,12 +58,12 @@
   // Function to go to the previous page of messages
   const futureData = () => {
     if (currentPage > 1) {
-      // Decrement current page if greater than 1
-      currentPage--
+      currentPage-- // Decrement current page if greater than 1
       fetchMessages({ direction: PaginationDirection.FUTURE })
     }
   }
 
+  // Function to handle input changes
   const handleInput = (e: Event) => {
     const target = e.target as HTMLInputElement // Type assertion
     const value = parseInt(target.value) || 0 // Parse and default to 0
@@ -113,7 +118,6 @@
     </button>
   </div>
   <div class="flex justify-center items-center space-x-4">
-
     <button
       on:click={handleDemo}
       class="px-4 py-2 bg-gray-700 text-white rounded disabled:opacity-50"
@@ -122,7 +126,7 @@
     </button>
   </div>
 
-  {#if !loading}
+  {#if !isLoading}
     <!-- Display number of messages -->
     <div class="flex justify-center items-center text-xl pb-2">{messageCount} Messages</div>
   {/if}

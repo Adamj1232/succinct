@@ -3,23 +3,25 @@
   import { removeLeadingZeros } from '../utils'
 
   // Array to hold fetched messages
-  export let messages: Message[]
+  export let messages: Message[] // Type annotation for messages
   // Loading state for fetching messages
-  export let loading
+  export let isLoading: boolean // Type annotation for loading state
 </script>
 
 <!-- TODO: Optimize for a mobile experience if necessary -->
 <!-- TODO: Research OOTB table components that come with UI component libs -->
 <!-- TODO: Make this component more generic if other tables are required by product -->
+
 <div>
   <div class="max-h-[70vh] max-w-[1400px] m-auto overflow-x-auto bg-gray-800 rounded-lg">
-    {#if loading}
+    {#if isLoading}
       <div class="flex justify-center items-center h-64">
         <!-- Loading indicator -->
         <div class="text-2xl text-white animate-pulse">Loading...</div>
       </div>
     {:else}
-      <table class="w-full text-white table-auto">
+      <table class="w-full text-white table-auto" aria-labelledby="table-caption">
+        <caption id="table-caption" class="sr-only">List of messages</caption>
         <thead class="sticky top-0 bg-gray-700">
           <tr>
             <!-- Column for Nonce -->
@@ -56,6 +58,8 @@
                   href={`https://etherscan.io/tx/${message.transactionHash}`}
                   target="_blank"
                   class="text-teal-400 hover:underline"
+                  rel="noopener noreferrer"
+                  aria-label={`View transaction ${message.transactionHash} on Etherscan`}
                 >
                   <!-- Display Transaction Hash -->
                   {message.transactionHash}
